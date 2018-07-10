@@ -5,6 +5,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.util.Pair;
+import android.text.TextUtils;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.CountDownLatch;
 
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 
@@ -29,7 +31,7 @@ public class AsyncTaskTest {
             protected void onPostExecute(String result) {
                 assertNotNull(result);
                 if (result != null) {
-                    assertTrue(result.length() > 0);
+                    assertFalse(TextUtils.isEmpty(result));
                     latch.countDown();
                 }
             }

@@ -45,15 +45,6 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 new FetchJoke().execute(new Pair<Context, String>(getActivity(), "Joke"));
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Intent intent = new Intent(getActivity(), JokeActivity.class);
-                intent.putExtra("Joke", joke);
-                startActivity(intent);
-
             }
         });
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -64,7 +55,7 @@ public class MainActivityFragment extends Fragment {
         return root;
     }
 
-    public static class FetchJoke extends AsyncTask<Pair<Context, String>, Void, String> {
+    public class FetchJoke extends AsyncTask<Pair<Context, String>, Void, String> {
         private MyApi myApiService = null;
         private Context context;
 
@@ -99,6 +90,9 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             joke = result;
+            Intent intent = new Intent(getActivity(), JokeActivity.class);
+            intent.putExtra("Joke", joke);
+            startActivity(intent);
         }
 
     }
